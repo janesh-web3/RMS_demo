@@ -1,0 +1,267 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 99%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 48%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 94%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 94%;
+    --muted-foreground: 215.4 16.3% 42%;
+    --accent: 210 40% 94%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 52%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 88%;
+    --input: 214.3 31.8% 88%;
+    --ring: 221.2 83.2% 48%;
+    --radius: 0.5rem;
+    /* Additional colors for better contrast */
+    --success: 142.1 76.2% 40%;
+    --success-foreground: 210 40% 98%;
+    --warning: 47.9 95.8% 50%;
+    --warning-foreground: 26 83% 14%;
+  } 
+
+  .dark {
+    --background: 222.2 47.4% 11.2%;
+    --foreground: 210 40% 98%;
+    --card: 217, 33%, 17%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 65%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 20%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 20%;
+    --muted-foreground: 215 20.2% 70%;
+    --accent: 217.2 32.6% 20%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 75% 58%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 20%;
+    --input: 217.2 32.6% 20%;
+    --ring: 224.3 76.3% 94.1%;
+    /* Additional dark mode colors */
+    --success: 142.1 76.2% 55%;
+    --success-foreground: 210 40% 98%;
+    --warning: 47.9 95.8% 65%;
+    --warning-foreground: 26 83% 14%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
+    scroll-behavior: smooth;
+  }
+  
+  /* Improved scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-muted;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+  
+  /* Enhanced focus styles */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+  
+  /* Smooth transitions for theme changes */
+  * {
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  }
+}
+
+@layer components {
+  /* Utility classes for animations */
+  .animate-in {
+    animation: fade-in 0.6s ease-out;
+  }
+  
+  .animate-slide-in-left {
+    animation: slide-in-left 0.6s ease-out;
+  }
+  
+  .animate-slide-in-right {
+    animation: slide-in-right 0.6s ease-out;
+  }
+  
+  .animate-bounce-in {
+    animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+  
+  /* Mobile touch targets */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px];
+  }
+  
+  /* Enhanced button hover effects */
+  .btn-hover {
+    @apply transition-all duration-200 ease-in-out hover:shadow-md hover:scale-105 active:scale-95;
+  }
+}
+/* Fast Modal Animations */
+@layer utilities {
+  .modal-fast-enter {
+    animation: modal-fast-enter 0.1s ease-out;
+  }
+  
+  .modal-fast-exit {
+    animation: modal-fast-exit 0.1s ease-in;
+  }
+  
+  .modal-overlay-fast {
+    animation: overlay-fast-enter 0.1s ease-out;
+  }
+}
+
+@keyframes modal-fast-enter {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes modal-fast-exit {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+}
+
+@keyframes overlay-fast-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Performance optimizations */
+.modal-content {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.modal-overlay {
+  will-change: opacity;
+  backface-visibility: hidden;
+}
+
+/* Enhanced modal centering */
+@layer components {
+  .modal-center {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    max-height: 90vh;
+    max-width: 90vw;
+    margin: 0 !important;
+    inset: auto !important; /* Override any conflicting inset values */
+  }
+  
+  .modal-center-responsive {
+    @apply modal-center;
+    width: calc(100vw - 2rem);
+    max-width: 32rem;
+  }
+  
+  @media (min-width: 640px) {
+    .modal-center-responsive {
+      width: auto;
+      min-width: 24rem;
+    }
+  }
+  
+  /* Ensure modal portal is properly positioned */
+  [data-radix-popper-content-wrapper] {
+    position: fixed !important;
+    inset: 0 !important;
+    pointer-events: none;
+  }
+  
+  /* Strong centering for all dialog content */
+  [data-radix-dialog-content] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    inset: auto !important;
+    max-height: 90vh !important;
+    max-width: min(90vw, 100vw - 2rem) !important;
+    overflow: auto !important;
+  }
+  
+  /* Additional strong overrides */
+  .modal-content[data-radix-dialog-content] {
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    position: fixed !important;
+  }
+  
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 640px) {
+    [data-radix-dialog-content] {
+      width: calc(100vw - 2rem) !important;
+      max-width: calc(100vw - 2rem) !important;
+      max-height: calc(100vh - 2rem) !important;
+    }
+  }
+  
+  /* Emergency fallback centering */
+  [role="dialog"] {
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+  }
+  
+  /* Ensure dialog overlay covers full screen */
+  [data-radix-dialog-overlay] {
+    position: fixed !important;
+    inset: 0 !important;
+  }
+}

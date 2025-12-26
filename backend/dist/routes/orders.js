@@ -1,0 +1,28 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const orderController_1 = require("../controllers/orderController");
+const auth_1 = require("../middleware/auth");
+const router = express_1.default.Router();
+router.post('/', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.createOrder);
+router.post('/:orderId/add-items', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.addItemsToOrder);
+router.put('/:orderId/items/:itemIndex', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.updateOrderItem);
+router.delete('/:orderId/items/:itemIndex', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.removeOrderItem);
+router.put('/:orderId/items/:itemIndex/cancel', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.cancelOrderItem);
+router.put('/:orderId/change-table', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.changeOrderTable);
+router.post('/merge', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Cashier', 'Admin'), orderController_1.mergeOrders);
+router.put('/:id/cancel', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Cashier', 'Admin'), orderController_1.cancelOrder);
+router.put('/:orderId/stock-usage', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Admin'), orderController_1.updateStockUsage);
+router.get('/manual-stock-items/:menuItemId', auth_1.auth, orderController_1.getManualStockItemsForMenuItem);
+router.get('/', auth_1.auth, orderController_1.getAllOrders);
+router.get('/:id', auth_1.auth, orderController_1.getOrderById);
+router.get('/table/:tableId', auth_1.auth, orderController_1.getOrdersByTable);
+router.get('/table/:tableId/active', auth_1.auth, orderController_1.getActiveOrderForTable);
+router.get('/table/:tableId/session/:sessionId', auth_1.auth, orderController_1.getOrdersBySession);
+router.put('/:id/status', auth_1.auth, (0, auth_1.authorize)('Kitchen', 'Waiter', 'Admin'), orderController_1.updateOrderStatus);
+router.post('/:id/print', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Kitchen', 'Admin'), orderController_1.printOrderById);
+router.post('/:orderId/print-kot', auth_1.auth, (0, auth_1.authorize)('Waiter', 'Kitchen', 'Admin'), orderController_1.printKOTForAddedItems);
+exports.default = router;
