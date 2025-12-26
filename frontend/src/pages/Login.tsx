@@ -225,18 +225,6 @@ const Login: React.FC = () => {
               </div>
             </CardContent>
           </Card>
-
-          {/* Footer */}
-          <div className="text-center mt-6 animate-fade-in">
-            <p className="text-sm text-muted-foreground">
-              Powered by{" "}
-              <a href="https://crownagi.com" target="_blank">
-                <span className="font-semibold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                  Crown Mantra AGI
-                </span>
-              </a>
-            </p>
-          </div>
         </div>
       </div>
     </div>
